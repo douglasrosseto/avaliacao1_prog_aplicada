@@ -1,8 +1,36 @@
 #include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 
-//função de codificação
-char * codificar (char * str){
-    return str;
+//função de contar quantos Z tem na string
+char * contarQntZs(char * str) {
+    int tamanhoString = strlen(str);
+
+    //contar quantas vezes o Z aparece na string
+    int contarZ = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        if (str[i] == 'Z'){ 
+            contarZ++;
+        }
+    }
+
+    //criar variável com o tamanho da string + o número de Z
+    char * novaString = malloc(tamanhoString + contarZ + 1);
+
+    //copia string antiga com a nova string com os Zs 
+    int temp = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        novaString[temp++] = str[i];
+
+        if (str[i] == 'Z'){ 
+            novaString[temp++] = 'Z';
+        }
+    }
+
+    novaString[temp] = 0;
+    return novaString;
 }
 
 //função de decodificação
@@ -23,8 +51,8 @@ int main(){
         char texto[1000];
         scanf("%s", texto); 
 
-        char * codificado = codificar(texto);
-        printf("\nTexto decodificado:\n%s", codificado);
+        char * codificado = contarQntZs(texto);
+        printf("\nTexto codificado:\n%s", codificado);
     }
 
     if(opcao == 'D'){
