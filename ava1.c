@@ -33,6 +33,65 @@ char * contarQntZs(char * str) {
     return novaString;
 }
 
+//função de checar se a string tem números
+char * checarSeTemNumeros(char * str) {
+    int tamanhoString = strlen(str);
+
+    //contar quantas vezes o Z aparece na string
+    int contarNums = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        if (str[i] >= '0' && str[i] <= '9') {
+            contarNums++;
+        }
+    }
+
+    //criar variável com o tamanho da string + o número de Z
+    char * novaString = malloc(tamanhoString + contarNums + 1);
+
+    //copia string antiga com a nova string com os Zs 
+    int temp = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        novaString[temp++] = 'Z';
+
+        if (str[i] == '0') {
+            novaString[temp++] = 'A';
+        }
+        if (str[i] == '1') {
+            novaString[temp++] = 'B';
+        }
+        if (str[i] == '2') {
+            novaString[temp++] = 'C';
+        }
+        if (str[i] == '3') {
+            novaString[temp++] = 'D';
+        }
+        if (str[i] == '4') {
+            novaString[temp++] = 'E';
+        }
+        if (str[i] == '5') {
+            novaString[temp++] = 'F';
+        }
+        if (str[i] == '6') {
+            novaString[temp++] = 'G';
+        }
+        if (str[i] == '7') {
+            novaString[temp++] = 'H';
+        }
+        if (str[i] == '8') {
+            novaString[temp++] = 'I';
+        }
+        if (str[i] == '9') {
+            novaString[temp++] = 'J';
+        }
+    }
+    novaString[temp] = 0;
+    return novaString;
+}
+
+
+
 //função de decodificação
 char * decodificar (char * str){
     return str;
@@ -52,7 +111,8 @@ int main(){
         scanf("%s", texto); 
 
         char * codificado = contarQntZs(texto);
-        printf("\nTexto codificado:\n%s", codificado);
+        char * codificado2 = checarSeTemNumeros(codificado);
+        printf("\nTexto codificado:\n%s", codificado2);
     }
 
     if(opcao == 'D'){
