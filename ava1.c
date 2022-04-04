@@ -37,7 +37,7 @@ char * contarQntZs(char * str) {
 char * checarSeTemNumeros(char * str) {
     int tamanhoString = strlen(str);
 
-    //contar quantas vezes o Z aparece na string
+    //contar quantos números tem na string
     int contarNums = 0;
     for (int i = 0; i < tamanhoString; i++) {
 
@@ -128,7 +128,7 @@ char * contarRepeticao(char * str) {
 char * decodificarRepeticao(char * str){
     char caracter, contador = 0, i = 0, *saida = malloc(tamanho_max);
     while ((caracter = * str++) != '\0') {
-        if ('0' <= caracter && caracter <= '9') {
+        if (caracter >= '0' && caracter <= '9') {
             contador = contador * 10 + (caracter - '0');
             continue;
         }
@@ -140,6 +140,115 @@ char * decodificarRepeticao(char * str){
     }
     *(saida + i) = '\0';
     return saida;
+}
+
+//função para decodificar a string retornando os números
+char * decodificarNums(char * str) {
+    int tamanhoString = strlen(str);
+
+    //criar variável com o tamanho da string + o número de Z
+    char * novaString = malloc(tamanhoString);
+
+    int temp = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        novaString[temp++] = str[i];
+
+        if (str[i] == 'Z' && str[i+1] == 'A'){
+            novaString[temp] = '0';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'B'){
+            novaString[temp] = '1';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'C'){
+            novaString[temp] = '2';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'D'){
+            novaString[temp] = '3';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        
+        if (str[i] == 'Z' && str[i+1] == 'E'){
+            novaString[temp] = '4';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'F'){
+            novaString[temp] = '5';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'G'){
+            novaString[temp] = '6';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'H'){
+            novaString[temp] = '7';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'I'){
+            novaString[temp] = '8';
+            novaString[temp-1] = '0';
+            i++;
+        }
+        if (str[i] == 'Z' && str[i+1] == 'J'){
+            novaString[temp] = '9';
+            novaString[temp-1] = '0';
+            i++;
+        }
+    }
+    novaString[temp] = 0;
+    return novaString;
+}
+
+//função para decodificar a string pelos ZZs
+char * decodificarZs(char * str){
+    int tamanhoString = strlen(str);
+
+    //contar quantas vezes aparece ZZ na string
+    int contarZZ = 0;
+    for (int i = 0; i < tamanhoString; i++) {
+
+        if (str[i] == 'Z' && str[i+1] == 'Z'){ 
+            contarZZ++;
+        }
+    }
+
+    if (contarZZ > 0) {
+
+        char * novaString = malloc(tamanhoString - contarZZ);
+        int temp = 0;
+        for (int i = 0; i < tamanhoString; i++) {
+
+            novaString[temp++] = str[i];
+
+            if (str[i] == 'Z' && str[i+1] == 'Z'){
+                novaString[temp] = 'Z';
+                novaString[temp+1] = '0';
+                i++;
+            }
+        }
+        novaString[temp] = 0;
+        return novaString;
+    }
+
+    if (contarZZ == 0) {
+        if (tamanhoString > 1) {  
+            return str;
+        }
+        if (tamanhoString == 1) {
+            return "";
+        }
+    }
 }
 
 int main(){
@@ -172,8 +281,10 @@ int main(){
 
         //chama as funções para decodificar
         char * decodificado = decodificarRepeticao(texto);
+        char * decodificado2 = decodificarNums(decodificado);
+        char * decodificado3 = decodificarZs(decodificado2);
         //printa o output da decodificação
-        printf("\nTexto decodificado:\n%s", decodificado);
+        printf("\nTexto decodificado:\n%s", decodificado3);
     }
 
     //em caso de nenhuma das opções acima, o usuário é avisado que o caractere digitado é inválido
